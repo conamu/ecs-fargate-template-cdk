@@ -13,10 +13,17 @@ func main() {
 
 	app := awscdk.NewApp(nil)
 
-	infra.NewCdkFargateStack(app, "CdkFargateStack", &infra.CdkFargateStackProps{
-		awscdk.StackProps{
-			Env: infra.Env(),
-		},
+	stack := awscdk.NewStack(app, jsii.String("templateStack"), &awscdk.StackProps{
+		Env:         infra.Env(),
+		Description: jsii.String("Template Stack"),
+	})
+
+	infra.NetworkingStack(stack, "templateNetStack", &awscdk.NestedStackProps{
+		Description: jsii.String("Networking Stack"),
+	})
+
+	infra.AppStack(stack, "templateAppStack", &awscdk.NestedStackProps{
+		Description: jsii.String("application stack"),
 	})
 
 	app.Synth(nil)
