@@ -1,10 +1,8 @@
-package main
+package infra
 
 import (
 	"github.com/aws/aws-cdk-go/awscdk/v2"
-	// "github.com/aws/aws-cdk-go/awscdk/v2/awssqs"
 	"github.com/aws/constructs-go/constructs/v10"
-	"github.com/aws/jsii-runtime-go"
 )
 
 type CdkFargateStackProps struct {
@@ -28,23 +26,9 @@ func NewCdkFargateStack(scope constructs.Construct, id string, props *CdkFargate
 	return stack
 }
 
-func main() {
-	defer jsii.Close()
-
-	app := awscdk.NewApp(nil)
-
-	NewCdkFargateStack(app, "CdkFargateStack", &CdkFargateStackProps{
-		awscdk.StackProps{
-			Env: env(),
-		},
-	})
-
-	app.Synth(nil)
-}
-
 // env determines the AWS environment (account+region) in which our stack is to
 // be deployed. For more information see: https://docs.aws.amazon.com/cdk/latest/guide/environments.html
-func env() *awscdk.Environment {
+func Env() *awscdk.Environment {
 	// If unspecified, this stack will be "environment-agnostic".
 	// Account/Region-dependent features and context lookups will not work, but a
 	// single synthesized template can be deployed anywhere.
