@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/conamu/cdk-fargate-template/internal/pkg/helloworld"
-	"github.com/conamu/cdk-fargate-template/internal/pkg/logging"
+	"cdk-fargate/internal/pkg/helloworld"
+	"cdk-fargate/internal/pkg/logging"
 	"log"
 	"net/http"
 )
