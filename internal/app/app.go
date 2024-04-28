@@ -12,12 +12,12 @@ func main() {
 	logger := logging.NewLogger()
 
 	server := http.Server{
-		Addr: ":8080",
+		Addr: ":80",
 	}
 
 	http.HandleFunc("/", helloworld.IndexHandler)
 
-	logger.Info("Serving on port 8080", "port", "8080")
+	logger.Info("Serving on port 80", "port", "80")
 	log.Fatal(server.ListenAndServe())
 
 }

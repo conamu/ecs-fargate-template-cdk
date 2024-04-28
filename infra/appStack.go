@@ -3,6 +3,7 @@ package infra
 import (
 	"github.com/aws/aws-cdk-go/awscdk/v2"
 	"github.com/aws/aws-cdk-go/awscdk/v2/awsec2"
+	"github.com/aws/aws-cdk-go/awscdk/v2/awsecrassets"
 	"github.com/aws/aws-cdk-go/awscdk/v2/awsecs"
 	"github.com/aws/aws-cdk-go/awscdk/v2/awsecspatterns"
 	"github.com/aws/constructs-go/constructs/v10"
@@ -31,14 +32,13 @@ func AppStack(scope constructs.Construct, id string, props *awscdk.NestedStackPr
 		jsii.String("template-fargate-service"),
 		&awsecspatterns.ApplicationLoadBalancedFargateServiceProps{
 			Cluster:      appCluster,
-			Cpu:          jsii.Number(512),
-			DesiredCount: jsii.Number(6),
+			Cpu:          jsii.Number(256),
+			DesiredCount: jsii.Number(1),
 			TaskImageOptions: &awsecspatterns.ApplicationLoadBalancedTaskImageOptions{
-				Image: awsecs.ContainerImage_FromRegistry(
-					jsii.String("amazon/amazon-ecs-sample"),
-					&awsecs.RepositoryImageProps{}),
-			},
-			MemoryLimitMiB:     jsii.Number(1024),
+				Image: awsecs.ContainerImage_FromAsset(jsii.String("."), &awsecs.AssetImageProps{
+					Platform: awsecrassets.Platform_LINUX_AMD64(),
+				})},
+			MemoryLimitMiB:     jsii.Number(512),
 			PublicLoadBalancer: jsii.Bool(true),
 		},
 	)
