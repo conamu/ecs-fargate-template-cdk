@@ -1,6 +1,7 @@
 package main
 
 import (
+	"cdk-fargate/internal/pkg/awsmeta"
 	"cdk-fargate/internal/pkg/helloworld"
 	"cdk-fargate/internal/pkg/logging"
 	"log"
@@ -10,6 +11,7 @@ import (
 func main() {
 
 	logger := logging.NewLogger()
+	awsmeta.Init(logger)
 
 	server := http.Server{
 		Addr: ":80",
@@ -18,6 +20,7 @@ func main() {
 	http.HandleFunc("/", helloworld.IndexHandler)
 
 	logger.Info("Serving on port 80", "port", "80")
+
 	log.Fatal(server.ListenAndServe())
 
 }

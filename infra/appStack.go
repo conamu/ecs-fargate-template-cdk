@@ -31,12 +31,16 @@ func AppStack(scope constructs.Construct, id string, props *awscdk.NestedStackPr
 		stack,
 		jsii.String("template-fargate-service"),
 		&awsecspatterns.ApplicationLoadBalancedFargateServiceProps{
-			Cluster:      appCluster,
+			Cluster: appCluster,
+			RuntimePlatform: &awsecs.RuntimePlatform{
+				CpuArchitecture:       awsecs.CpuArchitecture_ARM64(),
+				OperatingSystemFamily: awsecs.OperatingSystemFamily_LINUX(),
+			},
 			Cpu:          jsii.Number(256),
-			DesiredCount: jsii.Number(1),
+			DesiredCount: jsii.Number(3),
 			TaskImageOptions: &awsecspatterns.ApplicationLoadBalancedTaskImageOptions{
 				Image: awsecs.ContainerImage_FromAsset(jsii.String("."), &awsecs.AssetImageProps{
-					Platform: awsecrassets.Platform_LINUX_AMD64(),
+					Platform: awsecrassets.Platform_LINUX_ARM64(),
 				})},
 			MemoryLimitMiB:     jsii.Number(512),
 			PublicLoadBalancer: jsii.Bool(true),

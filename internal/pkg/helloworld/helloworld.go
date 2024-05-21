@@ -1,7 +1,14 @@
 package helloworld
 
-import "net/http"
+import (
+	"cdk-fargate/internal/pkg/awsmeta"
+	"fmt"
+	"net/http"
+)
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello World!"))
+
+	meta := awsmeta.Get()
+
+	w.Write([]byte(fmt.Sprintf("Hello World from %s!", meta.DockerID)))
 }
