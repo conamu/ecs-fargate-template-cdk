@@ -10,5 +10,5 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 
 	meta := awsmeta.Get()
 
-	w.Write([]byte(fmt.Sprintf("Hello World from %s!", meta.DockerID)))
+	w.Write([]byte(fmt.Sprintf("Heyo World from %s!", meta.DockerID)))
 }
